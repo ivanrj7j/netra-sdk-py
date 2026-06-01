@@ -6,7 +6,7 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 
 ## [0.1.89] - 2026-05-29
 - **Support for metadata alias for tokens in Anthropic instrumentation** - Capture various token alias for anthropic instrumentation
-
+- **Support for streaming output on root spans** - Add utility for attaching streaming output to root spans
 
 ## [0.1.88] - 2026-05-20
 
@@ -281,4 +281,4 @@ Users can be now overwrite the input and ouput attributes of spans created by in
 
 - Added utility to set input and output data for any active span in a trace
 
-[0.1.86]: https://github.com/KeyValueSoftwareSystems/netra-sdk-py/tree/main
+[0.1.89]: https://github.com/KeyValueSoftwareSystems/netra-sdk-py/tree/main
