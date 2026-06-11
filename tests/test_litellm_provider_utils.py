@@ -12,7 +12,7 @@ from netra.instrumentation.litellm.utils import (
 from .fixtures import OpenAI_LiteLLM_Test_Base
 
 
-class TestOpenAIProviderUtils(OpenAI_LiteLLM_Test_Base, unittest.TestCase):
+class TestLiteLLMProviderUtils(OpenAI_LiteLLM_Test_Base, unittest.TestCase):
     set_request_attributes_method = staticmethod(set_request_attributes)
     set_response_attributes_method = staticmethod(set_response_attributes)
     _set_chat_input_method = staticmethod(lambda span, messages, prompt: _set_chat_completion_input(span, messages))
