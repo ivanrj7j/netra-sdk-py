@@ -232,7 +232,8 @@ class TestOpenAIProviderUtils(unittest.TestCase, BaseProviderUtils):
         ]
 
         for case in openai_chat_response_input_cases:
-            self.__set_chat_response_input_check(case)
+            with self.subTest(scenario=case["name"]):
+                self.__set_chat_response_input_check(case["kwargs"])
 
     def __set_response_message_attributes_check(self, response_dict: dict[str, Any]) -> None:
         mock_span = MagicMock()
