@@ -1,3 +1,5 @@
+"""Tests for OpenAI instrumentation streaming wrappers."""
+
 import asyncio
 import unittest
 from typing import Any
@@ -9,6 +11,8 @@ from netra.instrumentation.openai.wrappers import AsyncStreamingWrapper, Streami
 
 
 class TestOpenAIWrappers(unittest.TestCase):
+    """Test suite for validating synchronous and asynchronous OpenAI streaming wrappers."""
+
     def __streaming_wrapper_check(
         self,
         fake_chunks: list[dict[str, Any]],
@@ -17,6 +21,16 @@ class TestOpenAIWrappers(unittest.TestCase):
         expected_prompt_tokens: int,
         expected_completion_tokens: int,
     ):
+        """
+        Verify that the synchronous StreamingWrapper correctly captures output and usage data.
+
+        Args:
+            fake_chunks: List of mock response chunks.
+            fake_request_kwargs: Mock request keyword arguments.
+            expected_netra_output: The expected stitched output string.
+            expected_prompt_tokens: The expected prompt token count in span attributes.
+            expected_completion_tokens: The expected completion token count in span attributes.
+        """
         mock_span = MagicMock()
 
         # Using a MagicMock as the stream to bypass an SDK bug where attributes
@@ -49,6 +63,16 @@ class TestOpenAIWrappers(unittest.TestCase):
         expected_prompt_tokens: int,
         expected_completion_tokens: int,
     ):
+        """
+        Verify that the AsyncStreamingWrapper correctly captures output and usage data.
+
+        Args:
+            fake_chunks: List of mock response chunks.
+            fake_request_kwargs: Mock request keyword arguments.
+            expected_netra_output: The expected stitched output string.
+            expected_prompt_tokens: The expected prompt token count in span attributes.
+            expected_completion_tokens: The expected completion token count in span attributes.
+        """
         mock_span = MagicMock()
 
         mock_stream = MagicMock()
@@ -117,6 +141,15 @@ class TestOpenAIWrappers(unittest.TestCase):
                 )
 
     def _get_scenarios(self):
+        """
+        Return a list of test scenarios for streaming wrappers.
+
+        Each scenario is a dictionary containing:
+        - name: Description of the test case.
+        - kwargs: Arguments passed to the mock request.
+        - chunks: A list of mock response chunks to be streamed.
+        - expected_output: The expected final stitched output string.
+        """
         return [
             {
                 "name": "Standard Success Path",
