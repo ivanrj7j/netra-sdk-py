@@ -60,6 +60,8 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
             SpanAttributes.LLM_REQUEST_REASONING_EFFORT, json.dumps({"depth": "high"})
         )
 
+        message_index = 0
+
         if input_data := kwargs.get("input"):
             if isinstance(input_data, str):
                 mock_span.set_attribute.assert_any_call(f"{SpanAttributes.LLM_PROMPTS}.{message_index}.role", "user")
