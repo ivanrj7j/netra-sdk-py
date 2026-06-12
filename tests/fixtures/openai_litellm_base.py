@@ -20,7 +20,7 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
     ATTRIBUTE_MAPPINGS = BaseProviderUtils.ATTRIBUTE_MAPPINGS.copy()
     ATTRIBUTE_MAPPINGS["dimensions"] = "gen_ai.request.dimensions"
 
-    def __set_chat_response_input_check(self, kwargs: dict[str, Any]):
+    def _set_chat_response_input_check(self, kwargs: dict[str, Any]):
         mock_span = MagicMock()
 
         self._set_chat_response_input_method(mock_span, kwargs)
@@ -228,9 +228,9 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
 
         for case in openai_chat_response_input_cases:
             with self.subTest(scenario=case["name"]):
-                self.__set_chat_response_input_check(case["kwargs"])
+                self._set_chat_response_input_check(case["kwargs"])
 
-    def __set_response_message_attributes_check(self, response_dict: dict[str, Any]) -> None:
+    def _set_response_message_attributes_check(self, response_dict: dict[str, Any]) -> None:
         mock_span = MagicMock()
         self._set_response_message_attributes_method(mock_span, response_dict)
 
@@ -358,9 +358,9 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
         # Loops cleanly over all scenarios, mapping each execution sequence safely
         for case in test_cases:
             with self.subTest(scenario=case["name"]):
-                self.__set_response_message_attributes_check(case["payload"])
+                self._set_response_message_attributes_check(case["payload"])
 
-    def __set_usage_attributes_check(self, usage_dict: dict[str, Any]) -> None:
+    def _set_usage_attributes_check(self, usage_dict: dict[str, Any]) -> None:
         """
         Thoroughly verifies _set_usage_attributes mapping using internal SpanAttributes.
         Dynamically calculates and enforces exact call counts to prevent leaked writes.
@@ -470,4 +470,4 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
         # Execute all cases cleanly with isolated subtests
         for case in usage_matrix_cases:
             with self.subTest(scenario=case["name"]):
-                self.__set_usage_attributes_check(case["payload"])
+                self._set_usage_attributes_check(case["payload"])
