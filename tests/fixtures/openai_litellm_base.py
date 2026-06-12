@@ -58,12 +58,9 @@ class OpenAI_LiteLLM_Test_Base(BaseProviderUtils):
             mock_span.set_attribute.assert_any_call(SpanAttributes.LLM_USAGE_TOTAL_TOKENS, total_tokens)
             expected_call_count += 1
 
-        # CRITICAL GUARD: Ensure no duplicate, unauthorized, or empty calls occurred
-        self.assertEqual(
-            mock_span.set_attribute.call_count,
-            expected_call_count,
-            f"Call count mismatch! Expected exactly {expected_call_count} writes, but found {mock_span.set_attribute.call_count}.",
-        )
+        assert (
+            mock_span.set_attribute.call_count == expected_call_count
+        ), f"Call count mismatch! Expected exactly {expected_call_count} writes, but found {mock_span.set_attribute.call_count}."
 
     def test_set_usage_attributes_matrix(self) -> None:
         """
